@@ -1,3 +1,5 @@
+{% extends "app_series/header.html" %} <!--we call our base template-->
+{% block content %}
 {% if go_to_login %}
 <a href="{% url 'login' %}">Bravo, connexion maintenant</a>
 {% endif %}
@@ -9,3 +11,4 @@
     {{ form.as_p }}
     <input type="submit" value="Create my account" />
 </form>
+{% endblock %}
