@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>TvShow</title>
-    </head>
-    <body>
-        <h1 style="text-align:center"><em>{{tv_show.title}}</em></h1>
-        <h3 style="text-align:center">{{tv_show.nb_of_seasons}} seasons</h3>
 
+{% extends "app_series/header.html" %} <!--we call our base template-->
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>TvShow</title>
+</head>
+<body>
+    <h1 style="text-align:center"><em>{{tv_show.title}}</em></h1>
+    <h3 style="text-align:center">{{tv_show.nb_of_seasons}} seasons</h3>
         {% if tv_show.is_in_production %}
             <p>In production</p>
             <p>Next Episode : {{next_episode}}</p>
         {% else %}
             <p>No more in production</p>
         {% endif %}
-
         <div>
             <p><em>Summary :</em></p>
             <p>{{tv_show.overview}}</p>
@@ -26,9 +25,10 @@
                 <li><a href="{% url 'season_url' tv_show.tmdb_id season_nb %}">Season {{ season_nb }}</a></li>
             {% endfor %}
         </ul>
-
-        {% if anonymous %}
+     {% if anonymous %}
             <p><a href="{% url 'login' %}">Connectez-vous</a> pour pouvoir ajouter la série à votre wishlist</p>
+        {% if is_in_wishlist %} <!-- The button "Add" is not displayed if the tv_show is already in the user's wishlist -->
+            <button disabled>Add</button>
         {% else %}
             {% if is_in_wishlist %} <!-- The button "Add" is not displayed if the tv_show is already in the user's wishlist -->
                 <button disabled>Add</button>
@@ -41,5 +41,5 @@
             {% endif %}
         {% endif %}
     </body>
-</html>
+{% endblock %}
 
