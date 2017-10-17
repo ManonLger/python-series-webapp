@@ -20,3 +20,9 @@ def index(request):
         "list": list
     }
     return render(request, 'app_series/index.html', context)
+
+def view_serie(request,id):
+    serie = TvShow()
+    serie.set_series_attributes(id)
+    liste_saison = range(serie.nb_season)
+    return render(request, 'app_series/serie.html',locals())
