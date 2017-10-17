@@ -14,7 +14,7 @@ def index(request):
     r = json.loads(r)["results"]
     list = []
     for tvs in r:
-        list += [TvShow(title = tvs["name"], id = tvs[])]
+        list += [TvShow(title = tvs["name"])]
 
     context = {
         "list": list
