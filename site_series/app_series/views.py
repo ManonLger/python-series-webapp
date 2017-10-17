@@ -5,14 +5,12 @@ import requests
 import json
 import site_series.settings as settings
 
-base_url = "https://api.themoviedb.org/3/"
-
 def index(request):
     params = {
         "sort_by": "popularity.desc",
         "api_key": settings.TMDB_API_KEY
     }
-    r = requests.get(base_url+"discover/tv", params=params).content.decode()
+    r = requests.get(settings.TMDB_API_URL+"discover/tv", params=params).content.decode()
     r = json.loads(r)["results"]
     list = []
     for tvs in r:
