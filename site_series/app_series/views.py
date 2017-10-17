@@ -3,15 +3,14 @@ from django.http import HttpResponse
 from .models import TvShow
 import requests
 import json
-
-base_url = "https://api.themoviedb.org/3/"
+import site_series.settings as settings
 
 def index(request):
     params = {
         "sort_by": "popularity.desc",
-        "api_key": "XXX"
+        "api_key": settings.TMDB_API_KEY
     }
-    r = requests.get(base_url+"discover/tv", params=params).content.decode()
+    r = requests.get(settings.TMDB_API_URL+"discover/tv", params=params).content.decode()
     r = json.loads(r)["results"]
     list = []
     for tvs in r:

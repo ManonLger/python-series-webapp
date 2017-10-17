@@ -11,16 +11,18 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import site_series.env as env
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'd(dz7_=znyr1i^)v7kw++3#+1+ak*#-$o-ng2%z&55s!7li_0z'
+TMDB_API_KEY = env.TMDB_API_KEY
+TMDB_API_URL = "https://api.themoviedb.org/3/"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
