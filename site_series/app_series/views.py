@@ -26,3 +26,9 @@ def view_serie(request,id):
     serie.set_series_attributes(id)
     liste_saison = range(serie.nb_season)
     return render(request, 'app_series/serie.html',locals())
+
+def view_season(request, tv_show, season_nb):
+    objet = Season()
+    objet.set_attributes(tv_show, season_nb)
+    liste_episodes = range(objet.nb_episodes)
+    return render(request, 'app_series/view_season.html', locals())
