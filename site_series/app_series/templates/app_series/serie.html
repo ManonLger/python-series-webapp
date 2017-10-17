@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Serie</title>
+</head>
+<body>
+<h1 style="color: blue;"><em>{{serie.title}}</em></h1>
+<h2 style="color: red;">{{serie.nb_season}} saisons</h2>
+{% if serie.in_production %}
+<h3>En cours de diffusion</h3>
+{% else %}
+<h3>Diffusion terminée</h3>
+{% endif %} !
+<p>{{serie.overview}}</p>
+<p><em>Accéder au détail des saisons suivantes :</em></p>
+<ul>
+{% for saison in liste_saison %}
+<li>Saison {{ saison }}</li>
+{% endfor %}
+</ul>
+<div>
+<button id="myClickButton" type="button">Click</button>
+</div>
+</body>
+</html>

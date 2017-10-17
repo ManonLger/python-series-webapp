@@ -11,7 +11,7 @@ class TvShow(models.Model):
                - overview : the description of the app_tvshow
                - nb_season : number of seasons in the app_tvshow
                - in_production : if set to True, the app_tvshow is still in production ; if set to False, it's been over"""
-        id_tv_show_tmdb = models.IntegerField(default=0)
+        id= models.IntegerField(default=0)
         title = models.CharField(max_length=100)
         overview = models.TextField(null=True)
         nb_season = models.IntegerField(default=0)
@@ -25,7 +25,7 @@ class TvShow(models.Model):
             api_key = settings.TMDB_API_KEY
             url = settings.TMDB_API_URL + str(id)
             url_content = json.loads(requests.get(url, params={"api_key": api_key}).content.decode())
-            self.id_tv_show_tmdb = id
+            self.id = id
             self.title = url_content["name"]
             self.overview = url_content["overview"]
             self.nb_season = url_content["number_of_seasons"]
