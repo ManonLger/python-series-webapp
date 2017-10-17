@@ -31,4 +31,4 @@ def view_season(request, tv_show, season_nb):
     objet = Season()
     objet.set_attributes(tv_show, season_nb)
     liste_episodes = range(objet.nb_episodes)
-    return render(request, 'app_series/view_season.html', locals())
+    return render(request, 'app_series/season.html', locals())
