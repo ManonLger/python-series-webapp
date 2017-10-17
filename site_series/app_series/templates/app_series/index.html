@@ -1,0 +1,10 @@
+<p>Super liste de séries les gars :</p>
+{% if list %}
+    <ul>
+    {% for tvs in list %}
+        <li>{{ tvs.title }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No series are available.</p>
+{% endif %}

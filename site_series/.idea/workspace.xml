@@ -34,8 +34,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_series/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+            <state relative-caret-position="75">
+              <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/app_series/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="125">
-              <caret line="5" column="72" lean-forward="true" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
+              <caret line="5" column="72" lean-forward="false" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -69,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/site_series/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
                 <element signature="e#645#686#0" expanded="true" />
               </folding>
@@ -92,8 +92,8 @@
         <option value="$PROJECT_DIR$/app_series/views.py" />
         <option value="$PROJECT_DIR$/app_series/urls.py" />
         <option value="$PROJECT_DIR$/site_series/urls.py" />
-        <option value="$PROJECT_DIR$/app_series/models.py" />
         <option value="$PROJECT_DIR$/site_series/settings.py" />
+        <option value="$PROJECT_DIR$/app_series/models.py" />
       </list>
     </option>
   </component>
@@ -151,7 +151,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -295,8 +295,62 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app_series/models.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_series/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="72" lean-forward="false" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_series/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site_series/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#645#686#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_series/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site_series/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
-          <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+          <caret line="33" column="36" lean-forward="false" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_series/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
           <folding />
         </state>
       </provider>
