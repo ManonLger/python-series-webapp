@@ -1,7 +1,6 @@
 import json
 import requests
 import site_series.settings as settings
-
 from django.db import models
 
 class TvShow(models.Model):
@@ -32,7 +31,33 @@ class TvShow(models.Model):
             self.in_production = url_content["in_production"]
 
 class Season(models.Model):
-    num = models.IntegerField()
+        """Definition of the class TvShowSeason, it contains the following attributes:
+            - id of the TvShow
+            - season_nb: season number
+            - id of the season
+            - name : season name
+            - overview : the description of the season
+            - broadcast_date : the release date of the season
+            - a list of episodes within the season"""
+        tv_show = models.ForeignKey('TvShow')
+        season_nb = models.IntegerField(default=0)
+        tmdb_id = models.IntegerField(default=0)
+        title = models.CharField(max_length=100, null=True)
+        overview = models.CharField(max_length=1000, null=True)
+        broadcast_date = models.DateField(auto_now=False, auto_now_add=False)
+        nb_episodes = models.IntegerField(default=0)
+
+        def set_attributes(selfself, tv_show, season_nb):
+            url = "https://api.themoviedb.org/3/tv/" + str(tv_show.tmdb_id) + "/season/" + str(season_nb)
+            url_cont = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
+            self.season_nb = season_nb
+            self.title = url_cont["name"]
+            self.overview = url_cont["overview"]
+            self.broadcast_date = url_cont["air_date"]
+            self.nb_episodes = len(url_cont["episodes"])
+
+
 
 class Episode(models.Model):
     num = models.IntegerField()
+
