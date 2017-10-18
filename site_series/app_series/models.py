@@ -2,6 +2,7 @@ import json
 import requests
 import site_series.settings as settings
 from django.db import models
+from django import utils
 
 class TvShow(models.Model):
         """Definition of the class TvShow, it contains the following attributes :
@@ -39,12 +40,12 @@ class Season(models.Model):
             - overview : the description of the season
             - broadcast_date : the release date of the season
             - a list of episodes within the season"""
-        tv_show = models.ForeignKey('TvShow')
+        tv_show = models.ForeignKey('TvShow',default=0)
         season_nb = models.IntegerField(default=0)
         tmdb_id = models.IntegerField(default=0)
         title = models.CharField(max_length=100, null=True)
         overview = models.CharField(max_length=1000, null=True)
-        broadcast_date = models.DateField(auto_now=False, auto_now_add=False)
+        broadcast_date = models.DateTimeField(auto_now_add=True, auto_now=False)
         nb_episodes = models.IntegerField(default=0)
 
         def set_attributes(self, id, season_nb):
