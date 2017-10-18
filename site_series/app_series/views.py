@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import TvShow
+from .models import TvShow, Season
 import requests
 import json
 import site_series.settings as settings
