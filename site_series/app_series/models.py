@@ -22,7 +22,7 @@ class TvShow(models.Model):
         def set_series_attributes(self,id):
             """Method that sets the attributes title, overview, nb_seasons,in_production"""
             api_key = settings.TMDB_API_KEY
-            url = settings.TMDB_API_URL + str(id)
+            url = settings.TMDB_API_URL + "tv/" + str(id)
             url_content = json.loads(requests.get(url, params={"api_key": api_key}).content.decode())
             self.tmdb_id = id
             self.title = url_content["name"]

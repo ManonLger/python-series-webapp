@@ -2,7 +2,10 @@
 {% if list %}
     <ul>
     {% for tvs in list %}
-        <li>{{ tvs.title }}</li>
+        <!--
+        <li><a href="/app_series/serie/{{tvs.tmdb_id}}">{{ tvs.title }}</a></li>
+        -->
+        <li><a href="{% url 'view_serie' tvs.tmdb_id %}">{{ tvs.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
