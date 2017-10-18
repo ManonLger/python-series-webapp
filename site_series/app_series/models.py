@@ -47,8 +47,8 @@ class Season(models.Model):
         broadcast_date = models.DateField(auto_now=False, auto_now_add=False)
         nb_episodes = models.IntegerField(default=0)
 
-        def set_attributes(selfself, tv_show, season_nb):
-            url = "https://api.themoviedb.org/3/tv/" + str(tv_show.tmdb_id) + "/season/" + str(season_nb)
+        def set_attributes(self, id, season_nb):
+            url = "https://api.themoviedb.org/3/tv/" + str(id) + "/season/" + str(season_nb)
             url_cont = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
             self.season_nb = season_nb
             self.title = url_cont["name"]
