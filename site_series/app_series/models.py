@@ -60,5 +60,29 @@ class Season(models.Model):
 
 
 class Episode(models.Model):
-    num = models.IntegerField()
+    """Definition of the class Episode, it contains the following attributes:
+                    - id of the TvShow
+                    - episode_nb: episode number
+                    - id of the episode
+                    - name : episode name
+                    - overview : the description of the episode
+                    - broadcast_date : the release date of the episode
+                    - an average score for the episode"""
+    tv_show = models.ForeignKey('TvShow', default=0)
+    tv_season = models.ForeignKey('Season', default=0)
+    episode_nb = models.IntegerField(default=0)
+    tmdb_id = models.IntegerField(default=0)
+    title = models.CharField(max_length=100, null=True)
+    overview = models.CharField(max_length=1000, null=True)
+    broadcast_date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    vote_average = models.IntegerField(default=0)
+
+    def set_attributes(self, id, season_nb, episode_nb):
+        url = "https://api.themoviedb.org/3/tv/" + str(id) + "/season/" + str(season_nb) + "/episode/" + str(episode_nb)
+        url_cont = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
+        self.episode_nb = episode_nb
+        self.title = url_cont["name"]
+        self.overview = url_cont["overview"]
+        self.broadcast_date = url_cont["air_date"]
+        self.vote_average = url_cont["vote_average"]
 
