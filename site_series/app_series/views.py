@@ -24,7 +24,7 @@ def index(request):
 def view_serie(request,id):
     serie = TvShow()
     serie.set_series_attributes(id)
-    liste_saison = range(serie.nb_season)
+    liste_saison = range(1, serie.nb_season)
     return render(request, 'app_series/serie.html',locals())
 
 def view_season(request, tv_show, season_nb):

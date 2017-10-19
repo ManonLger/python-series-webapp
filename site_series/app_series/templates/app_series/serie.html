@@ -15,14 +15,13 @@
 <p>{{serie.overview}}</p>
 <p><em>Accéder au détail des saisons suivantes :</em></p>
 <ul>
-{% for saison in liste_saison %}
-<li>Saison {{ saison }}</li>
+{% for season in liste_saison %}
+    <li><a href="{% url 'Season' serie.tmdb_id season %}">Saison {{ season }}</a></li>
 {% endfor %}
 </ul>
 <div>
 <button id="myClickButton" type="button">Click</button>
 </div>
-<p>Hello</p>
 </body>
 </html>
 
