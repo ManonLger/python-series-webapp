@@ -68,7 +68,7 @@ class Episode(models.Model):
                     - overview : the description of the episode
                     - broadcast_date : the release date of the episode
                     - an average score for the episode"""
-    tv_show = models.ForeignKey('TvShow', default=0)
+    #tv_show = models.ForeignKey('TvShow', default=0)
     tv_season = models.ForeignKey('Season', default=0)
     episode_nb = models.IntegerField(default=0)
     tmdb_id = models.IntegerField(default=0)

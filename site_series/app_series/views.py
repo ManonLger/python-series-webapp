@@ -36,7 +36,7 @@ def view_season(request, tv_show, season_nb):
 
 def view_episode(request, tv_show, season_nb, episode_nb):
     serie = TvShow(tmdb_id=tv_show)
-    season = Season(season_nb=season_nb)
-    objet = Episode(tv_show=serie, tv_season=season)
+    season = Season(tv_show= serie, season_nb=season_nb)
+    objet = Episode(tv_season=season)
     objet.set_attributes(tv_show, season_nb, episode_nb)
     return render(request, 'app_series/episode.html', locals())
