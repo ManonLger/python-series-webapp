@@ -1,3 +1,12 @@
-<h1>Saison</h1>
-<p>La saison numero {{objet.season_nb}} de la serie {{objet.tv_show.title}} s'appelle: {{objet.title}}</p>
-<p>La liste des épisodes de la série est: {{objet.nb_episodes}}</p>
+<h1>Season</h1>
+<p>Season number {{objet.season_nb}} of {{objet.tv_show.title}} is: {{objet.title}}</p>
+<p>Overview: {{objet.overview}}</p>
+<p>List of episodes within the season: {{objet.nb_episodes}}</p>
+
+
+<ul>
+    {% for episode in liste_episodes %}
+    <li> <a href="{% url 'Episode' objet.tv_show.tmdb_id objet.season_nb episode %}"> Episode {{episode}}</a></li>
+    {% endfor %}
+</ul>
+<p>Adios</P>

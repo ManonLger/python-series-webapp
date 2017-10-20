@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import TvShow, Season
+from .models import TvShow, Season, Episode
 import requests
 import json
 import site_series.settings as settings
@@ -28,7 +28,15 @@ def view_serie(request,id):
     return render(request, 'app_series/serie.html',locals())
 
 def view_season(request, tv_show, season_nb):
-    objet = Season()
+    serie = TvShow(tmdb_id=tv_show)
+    objet = Season(tv_show=serie)
     objet.set_attributes(tv_show, season_nb)
-    liste_episodes = range(objet.nb_episodes)
+    liste_episodes = range(1, objet.nb_episodes)
     return render(request, 'app_series/season.html', locals())
+
+def view_episode(request, tv_show, season_nb, episode_nb):
+    serie = TvShow(tmdb_id=tv_show)
+    season = Season(tv_show= serie, season_nb=season_nb)
+    objet = Episode(tv_season=season)
+    objet.set_attributes(tv_show, season_nb, episode_nb)
+    return render(request, 'app_series/episode.html', locals())
