@@ -4,6 +4,7 @@ from .models import TvShow, Season, Episode
 import requests
 import json
 import site_series.settings as settings
+from django.views.generic import ListView
 
 def index(request):
     params = {
@@ -40,3 +41,7 @@ def view_episode(request, tv_show, season_nb, episode_nb):
     objet = Episode(tv_season=season)
     objet.set_attributes(tv_show, season_nb, episode_nb)
     return render(request, 'app_series/episode.html', locals())
+
+class WishList(ListView):
+    model = TvShow
+    template_name = "app_series/wishlist.html"
