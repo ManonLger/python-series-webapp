@@ -1,0 +1,11 @@
+{% if go_to_login %}
+<a href="{% url 'login' %}">Bravo, connexion maintenant</a>
+{% endif %}
+
+<p>Petit form de signup oklm</p>
+
+<form method="post" action='signup'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create my account" />
+</form>
