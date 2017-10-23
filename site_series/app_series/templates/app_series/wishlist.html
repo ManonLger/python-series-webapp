@@ -9,7 +9,8 @@
 {% for serie in object_list %}
 <div>
 <h3>{{serie.title}}</h3>
-<p>{{serie.overview}}</p>
+<p>Prochain épisode : {{serie.get_next_episode_run_time}}</p>
+    <p>{{serie.overview}}</p>
     <p><em><a href="{% url 'Serie' serie.tmdb_id %}">Voir le détail</a></em></p>
 </div>
 {% endfor %}
