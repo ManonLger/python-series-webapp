@@ -92,4 +92,21 @@ def view_search(request, query, page=1):
         result = paginator.page(1)
     return render(request, 'app_series/search.html', locals())
 
+def view_my_list(request, id):
+    serie = TvShow()
+    serie.set_series_attributes(id)
+    if serie.save() is True:
+        liste_saison = range(1, serie.nb_season)
+        return render(request, 'app_series/serie.html', locals())
+    else:
+        serie.add_to_db()
+        liste_saison = range(1, serie.nb_season)
+        return render(request, 'app_series/serie.html', locals())
+    serie.add_to_db()
+
+    """serie_form= SerieForm()
+    if request.method == 'POST':
+        form = SerieForm(request.POST)
+        form.save()
+    return render(request, 'app_series/serie.html')"""
 
