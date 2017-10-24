@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>WishList</title>
 </head>
 <body>
-<h1>My WishList</h1>
+<h1 style="text-align:center">My WishList</h1>
 {% for serie in object_list %}
 <div>
 <h3>{{serie.title}}</h3>
-<p>Prochain épisode : {{serie.get_next_episode_run_time}}</p>
+<p>Next Episode : {{serie.get_next_episode_run_time}}</p>
     <p>{{serie.overview}}</p>
-    <p><em><a href="{% url 'Serie' serie.tmdb_id %}">Voir le détail</a></em></p>
+    <p><em><a href="{% url 'Serie' serie.tmdb_id %}">Check the details</a></em></p>
 </div>
 {% endfor %}
 </body>

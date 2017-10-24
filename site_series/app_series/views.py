@@ -32,14 +32,17 @@ def view_serie(request,id):
 def view_season(request, tv_show, season_nb):
     serie = TvShow(tmdb_id=tv_show)
     objet = Season(tv_show=serie)
+    serie.set_series_attributes(tv_show)
     objet.set_attributes(tv_show, season_nb)
-    liste_episodes = range(1, objet.nb_episodes)
+    liste_episodes = range(1, objet.nb_episodes+1)
     return render(request, 'app_series/season.html', locals())
 
 def view_episode(request, tv_show, season_nb, episode_nb):
     serie = TvShow(tmdb_id=tv_show)
     season = Season(tv_show= serie, season_nb=season_nb)
     objet = Episode(tv_season=season)
+    serie.set_series_attributes(tv_show)
+    season.set_attributes(tv_show, season_nb)
     objet.set_attributes(tv_show, season_nb, episode_nb)
     return render(request, 'app_series/episode.html', locals())
 

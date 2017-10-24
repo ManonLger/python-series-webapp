@@ -1,3 +1,17 @@
-<h1>Episode</h1>
-<p>Episode number {{objet.episode_nb}} of {{objet.tv_show.title}} in {{objet.tv_season.season_nb}} is: {{objet.title}}</p>
-<p>Overview: {{objet.overview}}</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Serie</title>
+</head>
+<body>
+<h1 style="text-align:center"><em>{{serie.title}}</em></h1>
+<h2 style="text-align:center"><em>{{objet.title}}</em></h2>
+<h3 style="text-align:center"><em>Season {{season.season_nb}}</em> Episode {{objet.episode_nb}}</h3>
+<div>
+    <p>Overview:</p>
+    <p>{{objet.overview}}</p>
+</div>
+
+</body>
+</html>

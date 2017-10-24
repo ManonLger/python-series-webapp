@@ -1,12 +1,23 @@
-<h1>Season</h1>
-<p>Season number {{objet.season_nb}} of {{objet.tv_show.title}} is: {{objet.title}}</p>
-<p>Overview: {{objet.overview}}</p>
-<p>List of episodes within the season: {{objet.nb_episodes}}</p>
-
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Saison</title>
+</head>
+<body>
+<h1 style="text-align:center"><em>{{serie.title}}</em></h1>
+<h2 style="text-align:center"><em>Season {{objet.season_nb}}</em></h2>
+<div>
+{% if objet.overview %}
+<p>Summary :</p>
+    <p>{{objet.overview}}</p>
+{% endif %}
+    </div>
+<p>Number of episodes: {{objet.nb_episodes}}</p>
 <ul>
     {% for episode in liste_episodes %}
     <li> <a href="{% url 'Episode' objet.tv_show.tmdb_id objet.season_nb episode %}"> Episode {{episode}}</a></li>
     {% endfor %}
 </ul>
-<p>Adios</P>
+</body>
+</html>
