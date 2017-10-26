@@ -3,6 +3,7 @@ import requests
 import site_series.settings as settings
 from django.db import models
 from django import utils
+from datetime import datetime
 
 class TvShow(models.Model):
         """Definition of the class TvShow, it contains the following attributes :
@@ -30,6 +31,16 @@ class TvShow(models.Model):
             self.overview = url_content["overview"]
             self.nb_season = url_content["number_of_seasons"]
             self.in_production = url_content["in_production"]
+
+        def get_next_episode_run_time(self):
+            """Methode that gets the next episode date in the current season"""
+            api_key = settings.TMDB_API_KEY
+            url = settings.TMDB_API_URL + "tv/" + str(self.tmdb_id)
+            last_air_date = json.loads(requests.get(url, params={"api_key": api_key}).content.decode())["last_air_date"]
+            if (datetime.strptime(last_air_date, '%Y-%m-%d') > datetime.now()):
+                return last_air_date
+            else :
+                return "Non renseigné"
 
 class Season(models.Model):
         """Definition of the class TvShowSeason, it contains the following attributes:

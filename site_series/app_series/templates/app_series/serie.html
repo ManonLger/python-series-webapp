@@ -9,9 +9,10 @@
 <h2 style="color: red;">{{serie.nb_season}} saisons</h2>
 {% if serie.in_production %}
 <h3>En cours de diffusion</h3>
+<p>Prochain episode : {{next_episode}}</p>
 {% else %}
 <h3>Diffusion terminée</h3>
-{% endif %} !
+{% endif %}
 <p>{{serie.overview}}</p>
 <p><em>Accéder au détail des saisons suivantes :</em></p>
 <ul>

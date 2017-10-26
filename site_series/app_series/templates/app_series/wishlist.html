@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WishList</title>
+</head>
+<body>
+<h1>My WishList</h1>
+{% for serie in object_list %}
+<div>
+<h3>{{serie.title}}</h3>
+<p>Prochain épisode : {{serie.get_next_episode_run_time}}</p>
+    <p>{{serie.overview}}</p>
+    <p><em><a href="{% url 'Serie' serie.tmdb_id %}">Voir le détail</a></em></p>
+</div>
+{% endfor %}
+</body>
+</html>
