@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Séries</title>
+	<meta charset="UTF-8">
+	<title>Séries</title>
 </head>
-<body>
-<h1 style="text-align:center">Discover new tv-shows</h1>
-{% if list %}
-    <ul>
-    {% for tvs in list %}
-        <li><a href="{% url 'Serie' tvs.tmdb_id %}">{{ tvs.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No series available</p>
-{% endif %}
-
-</body>
+	<body>
+		<h1 style="text-align:center">Discover new tv-shows</h1>
+		{% if list %}
+		    <ul>
+		    {% for tvs in list %}
+		        <li><a href="{% url 'Serie' tvs.tmdb_id %}">{{ tvs.title }}</a></li>
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No series available</p>
+		{% endif %}
+			<p><a href="{% url 'logout' %}">Déconnexion</a></p>
+	</body>
 </html>
+

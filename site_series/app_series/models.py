@@ -1,6 +1,7 @@
 import json
 import requests
 import site_series.settings as settings
+from django.contrib.auth.models import User
 from django.db import models
 from django import utils
 from datetime import datetime
@@ -56,7 +57,7 @@ class Season(models.Model):
         tmdb_id = models.IntegerField(default=0)
         title = models.CharField(max_length=100, null=True)
         overview = models.CharField(max_length=1000, null=True)
-        broadcast_date = models.DateTimeField(auto_now_add=True, auto_now=False)
+        # broadcast_date = models.DateTimeField(auto_now_add=True, auto_now=False)
         nb_episodes = models.IntegerField(default=0)
 
         def set_attributes(self, id, season_nb):
@@ -65,9 +66,8 @@ class Season(models.Model):
             self.season_nb = season_nb
             self.title = url_cont["name"]
             self.overview = url_cont["overview"]
-            self.broadcast_date = url_cont["air_date"]
+            # self.broadcast_date = url_cont["air_date"]
             self.nb_episodes = len(url_cont["episodes"])
-
 
 
 class Episode(models.Model):
@@ -85,7 +85,7 @@ class Episode(models.Model):
     tmdb_id = models.IntegerField(default=0)
     title = models.CharField(max_length=100, null=True)
     overview = models.CharField(max_length=1000, null=True)
-    broadcast_date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    # broadcast_date = models.DateTimeField(auto_now=False, auto_now_add=False)
     vote_average = models.IntegerField(default=0)
 
     def set_attributes(self, id, season_nb, episode_nb):
@@ -94,6 +94,9 @@ class Episode(models.Model):
         self.episode_nb = episode_nb
         self.title = url_cont["name"]
         self.overview = url_cont["overview"]
-        self.broadcast_date = url_cont["air_date"]
+        # self.broadcast_date = url_cont["air_date"]
         self.vote_average = url_cont["vote_average"]
 
+class Wishlist(models.Model):
+    user = models.OneToOneField(User)
+    wishes = models.ManyToManyField(TvShow)
