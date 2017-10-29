@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^serie/(\d+)$', tv.view_serie, name='Serie'),
     url(r'^season/(?P<tv_show>\d+)/(?P<season_nb>\d+)', tv.view_season, name='Season'),
     url(r'^episode/(?P<tv_show>\d+)/(?P<season_nb>\d+)/(?P<episode_nb>\d+)', tv.view_episode, name='Episode'),
-    url(r'^wishlist$', users.WishListView.as_view(), name="Wishlistview")
+    url(r'^wishlist$', users.WishListView.as_view(), name="Wishlistview"),
+    url(r'^search/(?P<query>((\w+).+)+)$', tv.view_search, name="ViewSearch"),
+    url(r'^search/(?P<query>((\w+).+)+)/(?P<page>\d+)$', tv.view_search, name="ViewSearch")
 ]
