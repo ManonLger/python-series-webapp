@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+<h1 style="text-align:center">Results for '{{query}}'</h1>
+		{% if result %}
+{% for serie in result %}
+<div>
+<h3>{{serie.name}}</h3>
+    <p>{{serie.overview}}</p>
+    <p><em><a href="{% url 'Serie' serie.id %}">Check the details</a></em></p>
+</div>
+{% endfor %}
+{% else %}
+		<p>No series corresponding to your query</p>
+	{% endif %}
+
+<div class="pagination">
+   {% if result.has_previous %}
+       <a href="?page={{ result.previous_page_number }}">Previous</a> -
+   {% endif %}
+
+   <span class="current">
+       Page {{ result.number }} sur {{ result.paginator.num_pages }}
+   </span>
+
+   {% if result.has_next %}
+       <a href="?page={{ result.next_page_number }}">Next</a>
+   {% endif %}
+</div>
+</body>
+</html>
