@@ -2,6 +2,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 from app_series.models import Wishlist, TvShow
 from django.views.generic import ListView
@@ -30,4 +33,9 @@ class WishListView(ListView):
         user = self.request.user #On récupère l'utilisateur connecté
         return user.wishlist.wishes.all() #On renvoie la liste des wishes de cet utilisateur
 
-
+@login_required(login_url='login')
+def delete_serie(request, id):
+    user = request.user
+    serie = user.wishlist.wishes.filter(tmdb_id=id)[0]
+    user.wishlist.wishes.remove(serie)
+    return HttpResponseRedirect(reverse("Wishlistview"))
