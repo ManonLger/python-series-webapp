@@ -51,6 +51,9 @@ class TvShow(models.Model):
             self.save()
 >>>>>>> SAving data in database - boucle if not sure
 
+        def add_to_db(self):
+            self.save()
+
 class Season(models.Model):
         """Definition of the class TvShowSeason, it contains the following attributes:
             - id of the TvShow
