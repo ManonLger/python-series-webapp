@@ -47,6 +47,16 @@ def view_serie(request,id):
     serie.set_series_attributes(id)
     liste_saison = range(1, serie.nb_season+1)
     next_episode = serie.get_next_episode_run_time()
+    if request.method == "POST":
+        user = request.user
+        if len(TvShow.objects.filter(tmdb_id=id)) == 0:
+            serie = TvShow()
+            serie.set_series_attributes(id)
+            serie.save()
+            user.wishlist.wishes.add(serie)
+        if len(user.wishlist.wishes.filter(tmdb_id=id)) == 0:
+            user.wishlist.wishes.add(serie)
+        return HttpResponseRedirect(reverse("Serie", args=[id]))
     return render(request, 'app_series/serie.html',locals())
 
 @login_required(login_url='login')

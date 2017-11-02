@@ -12,6 +12,9 @@
 <p>Next Episode : {{serie.get_next_episode_run_time}}</p>
     <p>{{serie.overview}}</p>
     <p><em><a href="{% url 'Serie' serie.tmdb_id %}">Check the details</a></em></p>
+    <form action="{% url 'Delete' serie.tmdb_id %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}<button type="submit" name="Submit">Delete</button></form>
 </div>
 {% endfor %}
 </body>

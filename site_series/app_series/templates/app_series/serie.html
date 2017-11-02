@@ -8,6 +8,7 @@
     <h1 style="text-align:center"><em>{{serie.title}}</em></h1>
     <h3 style="text-align:center">{{serie.nb_season}} seasons</h3>
 
+<<<<<<< HEAD
     {% if serie.in_production %}
         <p>In production</p>
         <p>Next Episode : {{next_episode}}</p>
@@ -27,12 +28,11 @@
         {% endfor %}
     </ul>
 
-    <form action="{% url 'Save' serie.tmdb_id %}" method="post">
+    <form action="{% url 'Serie' serie.tmdb_id %}" method="post">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit" name="Submit">Add</button>
+        {{form.as_p}}<button type="submit" name="Submit">Add</button>
     </form>
-
+    
 </body>
 </html>
 

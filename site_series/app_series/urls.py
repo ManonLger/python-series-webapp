@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^search/(?P<query>((\w+).+)+)$', tv.view_search, name="ViewSearch"),
     url(r'^search/(?P<query>((\w+).+)+)/(?P<page>\d+)$', tv.view_search, name="ViewSearch"),
     url(r'^season_saved/(\d+)', tv.view_my_list, name="Save")
+    url(r'^season/delete/(\d+)', users.delete_serie, name="Delete")
 ]
