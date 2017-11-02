@@ -9,7 +9,7 @@ from app_series.models import TvShow, Season, Episode
 import requests
 import json
 import site_series.settings as settings
-from app_series.forms.search import SearchForm
+from app_series.forms import SearchForm
 
 @login_required(login_url='login')
 def index(request):
