@@ -11,7 +11,7 @@
 <div>
 <h3>{{serie.name}}</h3>
     <p>{{serie.overview}}</p>
-    <p><em><a href="{% url 'Serie' serie.id %}">Check the details</a></em></p>
+    <p><em><a href="{% url 'tvshow_url' serie.id %}">Check the details</a></em></p>
 </div>
 {% endfor %}
 {% else %}

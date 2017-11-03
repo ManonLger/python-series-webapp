@@ -11,7 +11,6 @@ import json
 import site_series.settings as settings
 from app_series.forms import SearchForm
 
-@login_required(login_url='login')
 def index(request):
     params = {
         "sort_by": "popularity.desc",
@@ -29,7 +28,7 @@ def index(request):
         # check whether it's valid:
         if form.is_valid():
             query = form.cleaned_data['search']
-            return HttpResponseRedirect(reverse("ViewSearch",args=[query]))
+            return HttpResponseRedirect(reverse("search_url",args=[query]))
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -41,8 +40,7 @@ def index(request):
     }
     return render(request, 'app_series/index.html', context)
 
-@login_required(login_url='login')
-def view_serie(request,id):
+def tvshow(request,id):
     serie = TvShow()
     serie.set_series_attributes(id)
     liste_saison = range(1, serie.nb_season+1)
@@ -56,11 +54,10 @@ def view_serie(request,id):
             user.wishlist.wishes.add(serie)
         if len(user.wishlist.wishes.filter(tmdb_id=id)) == 0:
             user.wishlist.wishes.add(serie)
-        return HttpResponseRedirect(reverse("Serie", args=[id]))
+        return HttpResponseRedirect(reverse("tvshow_url", args=[id]))
     return render(request, 'app_series/serie.html',locals())
 
-@login_required(login_url='login')
-def view_season(request, tv_show, season_nb):
+def season(request, tv_show, season_nb):
     serie = TvShow(tmdb_id=tv_show)
     objet = Season(tv_show=serie)
     serie.set_series_attributes(tv_show)
@@ -68,8 +65,7 @@ def view_season(request, tv_show, season_nb):
     liste_episodes = range(1, objet.nb_episodes+1)
     return render(request, 'app_series/season.html', locals())
 
-@login_required(login_url='login')
-def view_episode(request, tv_show, season_nb, episode_nb):
+def episode(request, tv_show, season_nb, episode_nb):
     serie = TvShow(tmdb_id=tv_show)
     season = Season(tv_show= serie, season_nb=season_nb)
     objet = Episode(tv_season=season)
@@ -78,7 +74,7 @@ def view_episode(request, tv_show, season_nb, episode_nb):
     objet.set_attributes(tv_show, season_nb, episode_nb)
     return render(request, 'app_series/episode.html', locals())
 
-def view_search(request, query, page=1):
+def search(request, query, page=1):
     params = {
         "query": query,
         "api_key": settings.TMDB_API_KEY,
@@ -101,22 +97,4 @@ def view_search(request, query, page=1):
         # If page is not an integer, deliver first page.
         result = paginator.page(1)
     return render(request, 'app_series/search.html', locals())
-
-def view_my_list(request, id):
-    serie = TvShow()
-    serie.set_series_attributes(id)
-    if serie.save() is True:
-        liste_saison = range(1, serie.nb_season)
-        return render(request, 'app_series/serie.html', locals())
-    else:
-        serie.add_to_db()
-        liste_saison = range(1, serie.nb_season)
-        return render(request, 'app_series/serie.html', locals())
-    serie.add_to_db()
-
-    """serie_form= SerieForm()
-    if request.method == 'POST':
-        form = SerieForm(request.POST)
-        form.save()
-    return render(request, 'app_series/serie.html')"""
 

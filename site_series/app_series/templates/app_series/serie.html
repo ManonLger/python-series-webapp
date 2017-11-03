@@ -23,11 +23,11 @@
     <p><em>Follow the next seasons :</em></p>
     <ul>
         {% for season in liste_saison %}
-            <li><a href="{% url 'Season' serie.tmdb_id season %}">Season {{ season }}</a></li>
+            <li><a href="{% url 'season_url' serie.tmdb_id season %}">Season {{ season }}</a></li>
         {% endfor %}
     </ul>
 
-    <form action="{% url 'Serie' serie.tmdb_id %}" method="post">
+    <form action="{% url 'tvshow_url' serie.tmdb_id %}" method="post">
         {% csrf_token %}
         {{form.as_p}}<button type="submit" name="Submit">Add</button>
     </form>

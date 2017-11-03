@@ -15,7 +15,7 @@
 		</form>
 		<ul>
 		{% for tvs in list %}
-			<li><a href="{% url 'Serie' tvs.tmdb_id %}">{{ tvs.title }}</a></li>
+			<li><a href="{% url 'tvshow_url' tvs.tmdb_id %}">{{ tvs.title }}</a></li>
 		{% endfor %}
 		</ul>
 	{% else %}

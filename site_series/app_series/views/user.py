@@ -34,8 +34,27 @@ class WishListView(ListView):
         return user.wishlist.wishes.all() #On renvoie la liste des wishes de cet utilisateur
 
 @login_required(login_url='login')
-def delete_serie(request, id):
+def wishlist(request, id):
+    serie = TvShow()
+    serie.set_series_attributes(id)
+    if serie.save() is True:
+        liste_saison = range(1, serie.nb_season)
+        return render(request, 'app_series/serie.html', locals())
+    else:
+        serie.add_to_db()
+        liste_saison = range(1, serie.nb_season)
+        return render(request, 'app_series/serie.html', locals())
+    serie.add_to_db()
+
+    """serie_form= SerieForm()
+    if request.method == 'POST':
+        form = SerieForm(request.POST)
+        form.save()
+    return render(request, 'app_series/serie.html')"""
+
+@login_required(login_url='login')
+def delete(request, id):
     user = request.user
     serie = user.wishlist.wishes.filter(tmdb_id=id)[0]
     user.wishlist.wishes.remove(serie)
-    return HttpResponseRedirect(reverse("Wishlistview"))
+    return HttpResponseRedirect(reverse("wishlist_url"))

@@ -16,7 +16,7 @@
 <p>Number of episodes: {{objet.nb_episodes}}</p>
 <ul>
     {% for episode in liste_episodes %}
-    <li> <a href="{% url 'Episode' objet.tv_show.tmdb_id objet.season_nb episode %}"> Episode {{episode}}</a></li>
+    <li> <a href="{% url 'episode_url' objet.tv_show.tmdb_id objet.season_nb episode %}"> Episode {{episode}}</a></li>
     {% endfor %}
 </ul>
 </body>
