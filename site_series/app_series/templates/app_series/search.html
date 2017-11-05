@@ -7,11 +7,11 @@
 <body>
 <h1 style="text-align:center">Results for '{{query}}'</h1>
 		{% if result %}
-{% for serie in result %}
+{% for tv_show in result %}
 <div>
-<h3>{{serie.name}}</h3>
-    <p>{{serie.overview}}</p>
-    <p><em><a href="{% url 'tvshow_url' serie.id %}">Check the details</a></em></p>
+<h3>{{tv_show.name}}</h3>
+    <p>{{tv_show.overview}}</p>
+    <p><em><a href="{% url 'tv_show_url' tv_show.tmdb_id %}">Check the details</a></em></p>
 </div>
 {% endfor %}
 {% else %}

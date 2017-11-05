@@ -2,13 +2,13 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Serie</title>
+        <title>TvShow</title>
     </head>
 <body>
-    <h1 style="text-align:center"><em>{{serie.title}}</em></h1>
-    <h3 style="text-align:center">{{serie.nb_season}} seasons</h3>
+    <h1 style="text-align:center"><em>{{tv_show.title}}</em></h1>
+    <h3 style="text-align:center">{{tv_show.nb_of_seasons}} seasons</h3>
 
-    {% if serie.in_production %}
+    {% if tv_show.is_in_production %}
         <p>In production</p>
         <p>Next Episode : {{next_episode}}</p>
     {% else %}
@@ -17,17 +17,17 @@
 
     <div>
         <p><em>Summary :</em></p>
-        <p>{{serie.overview}}</p>
+        <p>{{tv_show.overview}}</p>
     </div>
 
     <p><em>Follow the next seasons :</em></p>
     <ul>
-        {% for season in liste_saison %}
-            <li><a href="{% url 'season_url' serie.tmdb_id season %}">Season {{ season }}</a></li>
+        {% for season_nb in seasons_list %}
+            <li><a href="{% url 'season_url' tv_show.tmdb_id season_nb %}">Season {{ season_nb }}</a></li>
         {% endfor %}
     </ul>
 
-    <form action="{% url 'tvshow_url' serie.tmdb_id %}" method="post">
+    <form action="{% url 'tv_show_url' tv_show.tmdb_id %}" method="post">
         {% csrf_token %}
         {{form.as_p}}<button type="submit" name="Submit">Add</button>
     </form>
