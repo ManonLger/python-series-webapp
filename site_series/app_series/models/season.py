@@ -17,6 +17,7 @@ class SeasonManager(models.Manager):
             overview=content["overview"],
             nb_of_episodes=len(content["episodes"])
         )
+        season.save()
         return season
 
 class Season(models.Model):

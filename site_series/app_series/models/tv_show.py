@@ -46,12 +46,3 @@ class TvShow(models.Model):
             return last_air_date
         else :
             return "Non renseigné"
-
-    # def update(self):
-    #     url = settings.TMDB_API_URL + "tv/" + str(self.tmdb_id)
-    #     content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
-    #
-    #     self.title = content["name"]
-    #     self.overview = content["overview"]
-    #     self.nb_of_seasons = content["number_of_seasons"]
-    #     self.is_in_production = content["in_production"]

@@ -27,10 +27,15 @@
         {% endfor %}
     </ul>
 
-    <form action="{% url 'tv_show_url' tv_show.tmdb_id %}" method="post">
-        {% csrf_token %}
-        {{form.as_p}}<button type="submit" name="Submit">Add</button>
-    </form>
+    {% if is_in_wishlist %}
+        <button disabled>Add</button>
+    {% else %}
+        <form action="{% url 'tv_show_url' tv_show.tmdb_id %}" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" name="Submit">Add</button>
+        </form>
+    {% endif %}
 </body>
 </html>
 

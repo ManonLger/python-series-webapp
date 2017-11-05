@@ -18,6 +18,7 @@ class EpisodeManager(models.Manager):
             overview=content["overview"],
             vote_average=content["vote_average"]
         )
+        episode.save()
         return episode
 
 class Episode(models.Model):

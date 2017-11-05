@@ -6,16 +6,18 @@
 </head>
 <body>
 <h1 style="text-align:center">My WishList</h1>
+
 {% for tv_show in object_list %}
-<div>
-<h3>{{tv_show.title}}</h3>
-<p>Next Episode : {{tv_show.next_episode_run_time}}</p>
-    <p>{{tv_show.overview}}</p>
-    <p><em><a href="{% url 'tv_show_url' tv_show.tmdb_id %}">Check the details</a></em></p>
-    <form action="{% url 'remove' tv_show.tmdb_id %}" method="post">
-    {% csrf_token %}
-    {{form.as_p}}<button type="submit" name="Submit">Delete</button></form>
-</div>
+    <div>
+        <h3>{{tv_show.title}}</h3>
+        <p>Next Episode : {{tv_show.next_episode_run_time}}</p>
+        <p>{{tv_show.overview}}</p>
+        <p><em><a href="{% url 'tv_show_url' tv_show.tmdb_id %}">Check the details</a></em></p>
+        <form action="{% url 'wishlist_url' tv_show.tmdb_id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="Submit">Delete</button>
+        </form>
+    </div>
 {% endfor %}
 </body>
 </html>
