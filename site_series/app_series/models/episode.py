@@ -7,18 +7,28 @@ from app_series.models.season import Season
 
 
 class EpisodeManager(models.Manager):
+    def create_episode_from_args(self, season, episode_nb, **kwargs):
+        try:
+            episode = Episode.objects.filter(season=season, episode_nb=episode_nb)
+            episode.update(**kwargs)
+            episode = episode.first()
+        except Episode.DoesNotExist:
+            episode = Episode.objects.create(season=season, episode_nb=episode_nb, **kwargs)
+            episode.save()
+        finally:
+            return episode
+
     def create_episode(self, tmdb_id, season_nb, episode_nb):
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id) + "/season/" + str(season_nb) + "/episode/" + str(episode_nb)
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
 
-        episode = self.create(
+        episode = self.create_episode_from_args(
             season=Season.objects.create_season(tmdb_id=tmdb_id, season_nb=season_nb),
             episode_nb=episode_nb,
             title=content["name"],
             overview=content["overview"],
             vote_average=content["vote_average"]
         )
-        episode.save()
         return episode
 
 class Episode(models.Model):

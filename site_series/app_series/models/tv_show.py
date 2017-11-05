@@ -5,18 +5,28 @@ from django.db import models
 from datetime import datetime
 
 class TvShowManager(models.Manager):
+    def create_tv_show_from_args(self, tmdb_id, **kwargs):
+        try:
+            tv_show = TvShow.objects.filter(tmdb_id=tmdb_id)
+            tv_show.update(**kwargs)
+            tv_show = tv_show.first()
+        except TvShow.DoesNotExist:
+            tv_show = TvShow.objects.create(tmdb_id=tmdb_id, **kwargs)
+            tv_show.save()
+        finally:
+            return tv_show
+
     def create_tv_show(self, tmdb_id):
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id)
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
 
-        tv_show = self.create(
+        tv_show = self.create_tv_show_from_args(
             tmdb_id=tmdb_id,
             title=content["name"],
             overview=content["overview"],
             nb_of_seasons=content["number_of_seasons"],
             is_in_production=content["in_production"]
         )
-        tv_show.save()
         return tv_show
 
 class TvShow(models.Model):

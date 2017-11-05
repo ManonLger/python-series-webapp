@@ -6,18 +6,28 @@ from django.db import models
 from app_series.models.tv_show import TvShow
 
 class SeasonManager(models.Manager):
+    def create_season_from_args(self, tv_show, season_nb, **kwargs):
+        try:
+            season = Season.objects.filter(tv_show=tv_show, season_nb=season_nb)
+            season.update(**kwargs)
+            season = season.first()
+        except Season.DoesNotExist:
+            season = Season.objects.create(tv_show=tv_show, season_nb=season_nb, **kwargs)
+            season.save()
+        finally:
+            return season
+
     def create_season(self, tmdb_id, season_nb):
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id) + "/season/" + str(season_nb)
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
 
-        season = self.create(
+        season = self.create_season_from_args(
             tv_show=TvShow.objects.create_tv_show(tmdb_id=tmdb_id),
             season_nb=season_nb,
             title=content["name"],
             overview=content["overview"],
             nb_of_episodes=len(content["episodes"])
         )
-        season.save()
         return season
 
 class Season(models.Model):
