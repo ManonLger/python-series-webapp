@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -10,20 +11,24 @@ from django.views.generic import ListView
 
 
 class IndexView(ListView):
-    model = TvShow
-    template_name = 'app_series/index.html'
+    """This class is based on ListView special feature in Django"""
+    model = TvShow #This view is based on the model TvShow
+    template_name = 'app_series/index.html' #The template linked to this ListView
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context["search_form"] = SearchForm()
+        context = super(IndexView, self).get_context_data(**kwargs) #Call the method of the parent
+        context["search_form"] = SearchForm() #add the form object to the context
+        context["anonymous"] = self.request.user.username == '' #add to the context a boolean describing if the user is logged in as AnonymousUser
         return context
 
     def get_queryset(self):
+        """Method that displays special tv_shows within the homepage, based on the feature Discover in the Tmdb API"""
         params = {
             "sort_by": "popularity.desc",
             "api_key": settings.TMDB_API_KEY
         }
         r = requests.get(settings.TMDB_API_URL+"discover/tv", params=params).content.decode()
+        #get the endpoint of tmdb API for the discover feature and decode it to be used
         content = json.loads(r)["results"]
         ids_list = [tv_show['id'] for tv_show in content]
 
@@ -37,34 +42,8 @@ class IndexView(ListView):
 
     def post(self, request):
         # create a form instance and populate it with data from the request:
-        search_form = SearchForm(request.POST)
+        search_form = SearchForm(request.POST) #get the form filled by the user
         # check whether it's valid:
         if search_form.is_valid():
-            query = search_form.cleaned_data['search']
-            return HttpResponseRedirect(reverse("search_url",args=[query]))
-
-#
-# def index(request):
-#     params = {
-#         "sort_by": "popularity.desc",
-#         "api_key": settings.TMDB_API_KEY
-#     }
-#     r = requests.get(settings.TMDB_API_URL+"discover/tv", params=params).content.decode()
-#     r = json.loads(r)["results"]
-#     list = []
-#     for tvs in r:
-#         list += [TvShow(title = tvs["name"], tmdb_id = tvs["id"])]
-#
-#     # Search Form
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         search_form = SearchForm(request.POST)
-#         # check whether it's valid:
-#         if search_form.is_valid():
-#             query = search_form.cleaned_data['search']
-#             return HttpResponseRedirect(reverse("search_url",args=[query]))
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         search_form = SearchForm()
-#
-#     return render(request, 'app_series/index.html', locals())
+            query = search_form.cleaned_data['search'] #get the query from the user
+            return HttpResponseRedirect(reverse("search_url",args=[query])) #redirect to the search_url template

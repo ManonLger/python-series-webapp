@@ -11,19 +11,15 @@ def search(request, query, page=1):
         "language": "en-US"
     }
     r = requests.get(settings.TMDB_API_URL + "search/tv", params=params).content.decode()
+    #get the endpoint of tmdb API for the search feature and decode it to be used
     result_list = json.loads(r)["results"]
 
-    paginator = Paginator(result_list, 5)  # 10 liens par page
-    page = request.GET.get('page')
+    paginator = Paginator(result_list, 5)  # 5 links per page
+    page = request.GET.get('page') 
     try:
-        # La définition de nos URL autorise comme argument « page » uniquement
-        # des entiers, nous n'avons pas à nous soucier de PageNotAnInteger
         result = paginator.page(page)
     except EmptyPage:
-        # Nous vérifions toutefois que nous ne dépassons pas la limite de page
-        # Par convention, nous renvoyons la dernière page dans ce cas
-        result = paginator.page(paginator.num_pages)
+        result = paginator.page(paginator.num_pages) #if the page is empty, return to the last page of pagination
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        result = paginator.page(1)
-    return render(request, 'app_series/search.html', locals())
+        result = paginator.page(1) #return to the  first page of the search
+    return render(request, 'app_series/search.html', locals()) #return to the search template 

@@ -12,7 +12,7 @@ def signup(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            Wishlist.objects.create(user=user) #A chaque fois qu'un utilisateur est créée, on lui associe une wishlist vide
+            Wishlist.objects.create(user=user) #Each time an user is created, an empty wishlist is linked to this user.
             go_to_login = True
         else:
             error = True
