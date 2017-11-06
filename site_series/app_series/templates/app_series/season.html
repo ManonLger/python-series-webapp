@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Season</title>
-</head>
-<body>
-<h1 style="text-align:center"><em>{{season.tv_show.title}}</em></h1>
-<h2 style="text-align:center"><em>Season {{season.season_nb}}</em></h2>
-<div>
-{% if season.overview %}
-<p>Summary :</p>
-    <p>{{season.overview}}</p>
-{% endif %}
-    </div>
-<p>Number of episodes: {{season.nb_of_episodes}}</p>
-<ul>
-    {% for episode in episodes_list %}
-    <li> <a href="{% url 'episode_url' season.tv_show.tmdb_id season.season_nb episode %}"> Episode {{episode}}</a></li>
-    {% endfor %}
-</ul>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Season</title>
+    </head>
+    <body>
+        <h1 style="text-align:center"><em>{{season.tv_show.title}}</em></h1>
+        <h2 style="text-align:center"><em>Season {{season.season_nb}}</em></h2>
+        <div>
+            {% if season.overview %}
+                <p>Summary :</p>
+                <p>{{season.overview}}</p>
+            {% endif %}
+        </div>
+        <p>Number of episodes: {{season.nb_of_episodes}}</p>
+        <ul>
+            {% for episode in episodes_list %}
+        <li> <a href="{% url 'episode_url' season.tv_show.tmdb_id season.season_nb episode %}"> Episode {{episode}}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
 </html>

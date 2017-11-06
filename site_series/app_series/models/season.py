@@ -27,7 +27,7 @@ class SeasonManager(models.Manager):
             overview=content["overview"],
             nb_of_episodes=len(content["episodes"])
         )
-        # print(season)
+        #set the attributes of the Season object while creating the object
         return season
 
 class Season(models.Model):
