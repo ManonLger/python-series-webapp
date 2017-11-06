@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Serie</title>
+<title>Episode</title>
 </head>
 <body>
-<h1 style="text-align:center"><em>{{serie.title}}</em></h1>
-<h2 style="text-align:center"><em>{{objet.title}}</em></h2>
-<h3 style="text-align:center"><em>Season {{season.season_nb}}</em> Episode {{objet.episode_nb}}</h3>
+<h1 style="text-align:center"><em>{{episode.season.tv_show.title}}</em></h1>
+<h2 style="text-align:center"><em>{{episode.title}}</em></h2>
+<h3 style="text-align:center"><em>Season {{episode.season.season_nb}}</em> Episode {{episode.episode_nb}}</h3>
 <div>
     <p>Overview:</p>
-    <p>{{objet.overview}}</p>
+    <p>{{episode.overview}}</p>
 </div>
 
 </body>
