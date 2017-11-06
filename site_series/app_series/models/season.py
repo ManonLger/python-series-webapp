@@ -7,15 +7,14 @@ from app_series.models.tv_show import TvShow
 
 class SeasonManager(models.Manager):
     def create_season_from_args(self, tv_show, season_nb, **kwargs):
-        try:
-            season = Season.objects.filter(tv_show=tv_show, season_nb=season_nb)
-            season.update(**kwargs)
-            season = season.first()
-        except Season.DoesNotExist:
+        season = Season.objects.filter(tv_show=tv_show, season_nb=season_nb)
+        if len(season) == 0:
             season = Season.objects.create(tv_show=tv_show, season_nb=season_nb, **kwargs)
             season.save()
-        finally:
-            return season
+        else:
+            season.update(**kwargs)
+            season = season.first()
+        return season
 
     def create_season(self, tmdb_id, season_nb):
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id) + "/season/" + str(season_nb)
