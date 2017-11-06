@@ -6,15 +6,14 @@ from datetime import datetime
 
 class TvShowManager(models.Manager):
     def create_tv_show_from_args(self, tmdb_id, **kwargs):
-        try:
-            tv_show = TvShow.objects.filter(tmdb_id=tmdb_id)
-            tv_show.update(**kwargs)
-            tv_show = tv_show.first()
-        except TvShow.DoesNotExist:
+        tv_show = TvShow.objects.filter(tmdb_id=tmdb_id)
+        if len(tv_show) == 0:
             tv_show = TvShow.objects.create(tmdb_id=tmdb_id, **kwargs)
             tv_show.save()
-        finally:
-            return tv_show
+        else:
+            tv_show.update(**kwargs)
+            tv_show = tv_show.first()
+        return tv_show
 
     def create_tv_show(self, tmdb_id):
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id)
