@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -16,6 +17,7 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context["search_form"] = SearchForm()
+        context["anonymous"] = self.request.user.username==''
         return context
 
     def get_queryset(self):
@@ -42,29 +44,3 @@ class IndexView(ListView):
         if search_form.is_valid():
             query = search_form.cleaned_data['search']
             return HttpResponseRedirect(reverse("search_url",args=[query]))
-
-#
-# def index(request):
-#     params = {
-#         "sort_by": "popularity.desc",
-#         "api_key": settings.TMDB_API_KEY
-#     }
-#     r = requests.get(settings.TMDB_API_URL+"discover/tv", params=params).content.decode()
-#     r = json.loads(r)["results"]
-#     list = []
-#     for tvs in r:
-#         list += [TvShow(title = tvs["name"], tmdb_id = tvs["id"])]
-#
-#     # Search Form
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         search_form = SearchForm(request.POST)
-#         # check whether it's valid:
-#         if search_form.is_valid():
-#             query = search_form.cleaned_data['search']
-#             return HttpResponseRedirect(reverse("search_url",args=[query]))
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         search_form = SearchForm()
-#
-#     return render(request, 'app_series/index.html', locals())

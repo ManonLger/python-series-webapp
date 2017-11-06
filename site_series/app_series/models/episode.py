@@ -5,19 +5,18 @@ from django.db import models
 
 from app_series.models.season import Season
 
-
 class EpisodeManager(models.Manager):
     def create_episode_from_args(self, season, episode_nb, **kwargs):
-        try:
-            episode = Episode.objects.filter(season=season, episode_nb=episode_nb)
-            episode.update(**kwargs)
-            episode = episode.first()
-        except Episode.DoesNotExist:
+        episode = Episode.objects.filter(season=season, episode_nb=episode_nb)
+        if len(episode) == 0:
             episode = Episode.objects.create(season=season, episode_nb=episode_nb, **kwargs)
             episode.save()
-        finally:
-            return episode
+        else:
+            episode.update(**kwargs)
+            episode = episode.first()
+        return episode
 
+    # @with_thread
     def create_episode(self, tmdb_id, season_nb, episode_nb):
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id) + "/season/" + str(season_nb) + "/episode/" + str(episode_nb)
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())

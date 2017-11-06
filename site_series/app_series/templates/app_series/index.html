@@ -25,7 +25,12 @@
 		{% else %}
 			<p>No tv show available</p>
 		{% endif %}
-		<p><a href="{% url 'logout' %}">Déconnexion</a></p>
+
+		{% if anonymous %}
+			<p><a href="{% url 'login' %}">Connexion</a></p>
+		{% else %}
+			<p><a href="{% url 'logout' %}">Déconnexion</a></p>
+		{% endif %}
 	</body>
 </html>
 
