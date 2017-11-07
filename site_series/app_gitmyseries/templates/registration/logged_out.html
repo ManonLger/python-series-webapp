@@ -1,0 +1,12 @@
+{% extends "app_gitmyseries/header.html" %} <!--we call our base template-->
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Logged out</title>
+</head>
+<body>
+    <h3>Congratulations, you have been logged out.</h3>
+    <p>If you wish, you can still surf on <a href="{% url 'index' %}">GitMySeries</a> awesome website!</p>
+    <p>Or you can even <a href="{% url 'login' %}">log in</a> again!</p>
+</body>
+{% endblock %}
