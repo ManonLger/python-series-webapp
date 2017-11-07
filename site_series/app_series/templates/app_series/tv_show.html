@@ -8,38 +8,39 @@
 <body>
     <h1 style="text-align:center"><em>{{tv_show.title}}</em></h1>
     <h3 style="text-align:center">{{tv_show.nb_of_seasons}} seasons</h3>
-        {% if tv_show.is_in_production %}
-            <p>In production</p>
-            <p>Next Episode : {{next_episode}}</p>
-        {% else %}
-            <p>No more in production</p>
-        {% endif %}
-        <div>
+
+    {% if tv_show.is_in_production %}
+    <p>In production</p>
+        <p>Next Episode : {{next_episode}}</p>
+    {% else %}
+        <p>No more in production</p>
+    {% endif %}
+
+    <div>
             <p><em>Summary :</em></p>
             <p>{{tv_show.overview}}</p>
-        </div>
+    </div>
 
-        <p><em>Follow the next seasons :</em></p>
-        <ul>
-            {% for season_nb in seasons_list %}
-                <li><a href="{% url 'season_url' tv_show.tmdb_id season_nb %}">Season {{ season_nb }}</a></li>
-            {% endfor %}
-        </ul>
-     {% if anonymous %}
-            <p><a href="{% url 'login' %}">Connectez-vous</a> pour pouvoir ajouter la série à votre wishlist</p>
+    <p><em>Follow the next seasons :</em></p>
+    <ul>
+        {% for season_nb in seasons_list %}
+            <li><a href="{% url 'season_url' tv_show.tmdb_id season_nb %}">Season {{ season_nb }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% if anonymous %}
+        <p><a href="{% url 'login' %}">Connectez-vous</a> pour pouvoir ajouter la série à votre wishlist</p>
+    {% else %}
         {% if is_in_wishlist %} <!-- The button "Add" is not displayed if the tv_show is already in the user's wishlist -->
             <button disabled>Add</button>
         {% else %}
-            {% if is_in_wishlist %} <!-- The button "Add" is not displayed if the tv_show is already in the user's wishlist -->
-                <button disabled>Add</button>
-            {% else %}
-                <form action="{% url 'tv_show_url' tv_show.tmdb_id %}" method="post"> <!-- The Post Method sends the data collected from the form to the tv_show view -->
+            <form action="{% url 'tv_show_url' tv_show.tmdb_id %}" method="post"> <!-- The Post Method sends the data collected from the form to the tv_show view -->
                     {% csrf_token %}
                     {{form.as_p}}
                     <button type="submit" name="Submit">Add</button>
-                </form>
-            {% endif %}
+            </form>
         {% endif %}
-    </body>
+    {% endif %}
+</body>
 {% endblock %}
 
