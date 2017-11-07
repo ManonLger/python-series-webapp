@@ -3,15 +3,16 @@
 <html lang="en">
 <link rel="stylesheet" href="{% static 'css/headbound.css' %}">
     <header>
-        <h1><p align="center"><em>Git my series</em></p></header></h1>
+        <h1><p align="center"><em>Git my series</em></h1>
         <link rel="stylesheet" href="{% static 'css/headbound.css' %}">
-        <p align="left">
-            <button><a href="{% url 'index' %}">Homepage</a></button>
-        </p>
-        <p align="right">
-            <button><a href="{% url 'wishlist_url' %}">My Wishlist</a></button>
+            <button align="left"><a href="{% url 'index' %}">Homepage</a></button>
+
+            <button align="right"><a href="{% url 'wishlist_url' %}">My Wishlist</a></button>
         </p>
     </header>
 {% block content %} <!--content of each template is inserted-->
 {% endblock %}
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">
+<footer>
+</footer>
 </html>
