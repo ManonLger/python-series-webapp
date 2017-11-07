@@ -19,7 +19,6 @@ class SeasonManager(models.Manager):
     def create_season(self, tmdb_id, season_nb):
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id) + "/season/" + str(season_nb)
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
-        # print(content)
         season = self.create_season_from_args(
             tv_show=TvShow.objects.create_tv_show(tmdb_id=tmdb_id),
             season_nb=season_nb,

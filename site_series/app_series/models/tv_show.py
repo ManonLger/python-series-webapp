@@ -27,7 +27,9 @@ class TvShowManager(models.Manager):
             title=content["name"],
             overview=content["overview"],
             nb_of_seasons=content["number_of_seasons"],
-            is_in_production=content["in_production"]
+            is_in_production=content["in_production"],
+            next_episode_run_time=datetime.strptime(content["last_air_date"], '%Y-%m-%d')
+            #conversion into a date field
         )
         #set the attributes of the TvShow object while creating the object
         return tv_show
@@ -44,6 +46,7 @@ class TvShow(models.Model):
     overview = models.TextField(null=True)
     nb_of_seasons = models.IntegerField(default=0)
     is_in_production = models.BooleanField(default=True)
+    next_episode_run_time = models.DateField(null=True)
 
     objects = TvShowManager() #call the similar __init__ method
 
@@ -51,11 +54,7 @@ class TvShow(models.Model):
         return self.title
 
     @property
-    def next_episode_run_time(self):
+    def get_next_episode_run_time(self):
         """Methode that gets the next episode date in the current season"""
-        url = settings.TMDB_API_URL + "tv/" + str(self.tmdb_id)
-        last_air_date = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())["last_air_date"]
-        if (datetime.strptime(last_air_date, '%Y-%m-%d') > datetime.now()): #check if last_air_date corresponds to the next episode date
-            return last_air_date
-        else :
-            return "Non renseigné" #if the next episode run time is not mentionned, or the tv_show is not anymore in production
+        if self.next_episode_run_time > datetime.now().date(): #check if last_air_date corresponds to the next episode date
+            return self.next_episode_run_time
