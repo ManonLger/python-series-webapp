@@ -8,12 +8,15 @@
 <body>
     <h1 style="text-align:center"><em>{{tv_show.title}}</em></h1>
     <h3 style="text-align:center">{{tv_show.nb_of_seasons}} seasons</h3>
-
     {% if tv_show.is_in_production %}
-    <p>In production</p>
-        <p>Next Episode : {{next_episode}}</p>
+        <p>In production</p>
     {% else %}
         <p>No more in production</p>
+    {% endif %}
+    {% if next_episode %}
+        <p>Next Episode : {{next_episode}}</p>
+    {% else %}
+        <p>No next Episode</p>
     {% endif %}
 
     <div>

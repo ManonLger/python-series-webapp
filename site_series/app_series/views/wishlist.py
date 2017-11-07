@@ -13,7 +13,7 @@ class WishListView(ListView):
 
     def get_queryset(self):
         user = self.request.user #Get the current user logged 
-        return user.wishlist.wishes.all() #Return all the tv_shows in the wishlist of the user
+        return user.wishlist.wishes.order_by("-next_episode_run_time") #Return all the tv_shows in the wishlist of the user
 
     def post(self, request, tmdb_id):
         request.user.wishlist.remove_from_list(tmdb_id) #Call the method to remove the tv_show from the wishlist
