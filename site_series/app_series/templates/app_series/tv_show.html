@@ -27,14 +27,18 @@
             {% endfor %}
         </ul>
 
-        {% if is_in_wishlist %} <!-- The button "Add" is not displayed if the tv_show is already in the user's wishlist -->
-            <button disabled>Add</button>
+        {% if anonymous %}
+            <p><a href="{% url 'login' %}">Connectez-vous</a> pour pouvoir ajouter la série à votre wishlist</p>
         {% else %}
-            <form action="{% url 'tv_show_url' tv_show.tmdb_id %}" method="post"> <!-- The Post Method sends the data collected from the form to the tv_show view -->
-                {% csrf_token %}
-                {{form.as_p}}
-                <button type="submit" name="Submit">Add</button>
-            </form>
+            {% if is_in_wishlist %} <!-- The button "Add" is not displayed if the tv_show is already in the user's wishlist -->
+                <button disabled>Add</button>
+            {% else %}
+                <form action="{% url 'tv_show_url' tv_show.tmdb_id %}" method="post"> <!-- The Post Method sends the data collected from the form to the tv_show view -->
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit" name="Submit">Add</button>
+                </form>
+            {% endif %}
         {% endif %}
     </body>
 </html>
