@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "app_series/header.html" %} <!--we call our base template-->
+{% block content %}
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
@@ -39,4 +39,4 @@
         <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
         <p><a href="{% url 'signup' %}">No account yet?</a></p>
     </body>
-</html>
+{% endblock %}

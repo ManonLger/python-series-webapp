@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "app_series/header.html" %} <!--we call our base template-->
+{% block content %}
 <head>
 	<meta charset="UTF-8">
 	<title>Index</title>
@@ -31,5 +31,6 @@
 			<p><a href="{% url 'logout' %}">Déconnexion</a></p>
 		{% endif %}
 	</body>
-</html>
+{% endblock %}
+
 
