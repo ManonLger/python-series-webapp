@@ -9,8 +9,8 @@
     {% for tv_show in object_list %}
         <div>
             <h3>{{tv_show.title}}</h3>
-            {% if tv_show.get_next_episode_run_time %}
-                <p>Next Episode : {{tv_show.get_next_episode_run_time}}</p>
+            {% if tv_show.next_episode_run_time %}
+                <p>Next Episode : {{tv_show.next_episode_run_time}}</p>
             {% else %}
                 <p>No next Episode</p>
             {% endif %}
