@@ -1,3 +1,4 @@
 site_series/site_series/env.py
 site_series/site_series/__pycache__/env.cpython-36.pyc
 .idea
+/site_series/site_gitmyseries/env.py
