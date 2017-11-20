@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 <html lang="en">
-<link rel="stylesheet" href="{% static 'css/footer.css' %}">
-    <header>
-        <h1 class="header"><p align="center"><em>Git my series</em></h1>
-        <link rel="stylesheet" href="{% static 'css/headbound.css' %}">
-            <button align="left"><a href="{% url 'index' %}" class="nounderline">Homepage</a></button>
-
-            <button align="right"><a href="{% url 'wishlist_url' %}" class="nounderline">My Wishlist</a></button>
-        </p>
-    </header>
+<link rel="stylesheet" href="{% static 'css/headbound.css' %}">
+<header>
+    <h1 class="header" align="center">
+        <em>Git my series</em>
+    </h1>
+    <a class="homepage_button" href="{% url 'index' %}">Homepage</a>
+    <a class="homepage_button" href="{% url 'wishlist_url' %}">My Wishlist</a>
+</header>
 {% block content %} <!--content of each template is inserted-->
 {% endblock %}
 <link rel="stylesheet" href="{% static 'css/footer.css' %}">

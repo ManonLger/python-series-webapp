@@ -19,12 +19,14 @@ h1 {
 
 }
 
-a.nounderline {
-    text-decoration:none;
-    color: black;
-}
-
 a {
     text-decoration:none;
     color: indianred;
+}
+
+a.homepage_button {
+    border: 4px;
+    padding: 2px;
+    text-decoration: none;
+    background-color: white;
 }
