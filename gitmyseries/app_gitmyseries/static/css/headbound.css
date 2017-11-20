@@ -1,0 +1,32 @@
+header {
+    background-color: #8B0000;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+    color: white;
+}
+
+h1.header {
+    color: white;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Comic sans', cursive;
+}
+
+h1 {
+    font-family: 'Comic sans', cursive;
+    color: midnightblue;
+
+}
+
+a {
+    text-decoration:none;
+    color: indianred;
+}
+
+a.homepage_button {
+    border: 4px;
+    padding: 2px;
+    text-decoration: none;
+    background-color: white;
+}
