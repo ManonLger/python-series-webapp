@@ -10,9 +10,9 @@ Pre-requisite:
 Steps to download the app:
 - Clone the repo: `git clone https://github.com/Manon-L/python-series-webapp.git`
 - On TMDB (`https://www.themoviedb.org`), ask for a new API key
-- Add a file `env.py` in the folder `site_series/site_series` and write on it: `TMDB_API_KEY = "<Your_API_key>"`
+- Add a file `env.py` in the folder `gitmyseries/site_gitmyseries` and write on it: `TMDB_API_KEY = "<Your_API_key>"`
 
 Steps to run the application:
 - Go to the folder « site_series » in your terminal: `cd site_series`
 - Run the following command in your terminal: `python manage.py runserver`
-- Browse: `localhost:8000/app_series/`
+- Browse: `localhost:8000/gitmyseries/`
