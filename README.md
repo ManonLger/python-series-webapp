@@ -13,6 +13,6 @@ Steps to download the app:
 - Add a file `env.py` in the folder `gitmyseries/site_gitmyseries` and write on it: `TMDB_API_KEY = "<Your_API_key>"`
 
 Steps to run the application:
-- Go to the folder « site_series » in your terminal: `cd site_series`
+- Go to the folder «gitmyseries » in your terminal: `cd gitmyseries`
 - Run the following command in your terminal: `python manage.py runserver`
 - Browse: `localhost:8000/gitmyseries/`
