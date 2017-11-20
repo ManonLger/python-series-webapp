@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -12,8 +14,11 @@ class WishListView(ListView):
     template_name = "app_gitmyseries/wishlist.html" #The template linked to this ListView
 
     def get_queryset(self):
-        user = self.request.user #Get the current user logged 
-        return user.wishlist.wishes.order_by("-next_episode_run_time") #Return all the tv_shows in the wishlist of the user
+        if self.request.user.username == '':
+            pass
+        else:
+            wishes = self.request.user.wishlist.wishes #Get current user's wishlist
+            return wishes.filter(next_episode_run_time__gt=datetime.now().date()).order_by("-next_episode_run_time") #Return all the tv_shows in the wishlist of the user
 
     def post(self, request, tmdb_id):
         request.user.wishlist.remove_from_list(tmdb_id) #Call the method to remove the tv_show from the wishlist

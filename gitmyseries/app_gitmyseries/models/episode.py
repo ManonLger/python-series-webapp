@@ -47,4 +47,4 @@ class Episode(models.Model):
     overview = models.CharField(max_length=1000, null=True)
     vote_average = models.IntegerField(default=0)
 
-    objects = EpisodeManager() #call the similar __init__ method
+    objects = EpisodeManager()

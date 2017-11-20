@@ -13,7 +13,7 @@ class TvShowManager(models.Manager):
             tv_show.save() #save it - it's a sort of cache - if an user browse to a tv_show view, we store it in database
         else:
             tv_show.update(**kwargs) #update if changes are observed (especially number of season, or in_production attributes)
-            tv_show = tv_show.first() #get the first element of the list (TvShow.objects is a list)
+            tv_show = tv_show.first() #get the first element of the collection (TvShow.objects is a collection)
         return tv_show
 
     def create_tv_show(self, tmdb_id):
@@ -48,13 +48,7 @@ class TvShow(models.Model):
     is_in_production = models.BooleanField(default=True)
     next_episode_run_time = models.DateField(null=True)
 
-    objects = TvShowManager() #call the similar __init__ method
+    objects = TvShowManager()
 
     def __str__(self):
         return self.title
-
-    @property
-    def get_next_episode_run_time(self):
-        """Methode that gets the next episode date in the current season"""
-        if self.next_episode_run_time > datetime.now().date(): #check if last_air_date corresponds to the next episode date
-            return self.next_episode_run_time
