@@ -9,6 +9,7 @@
     {% for tv_show in object_list %}
         <div>
             <h3>{{tv_show.title}}</h3>
+            <img src={{tv_show.url_image}} width="100" height="150">
             {% if tv_show.next_episode_run_time != '0' %}
                 <p>Next Episode : {{tv_show.next_episode_run_time}}</p>
             {% else %}

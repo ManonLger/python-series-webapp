@@ -25,6 +25,7 @@ SECRET_KEY = 'd(dz7_=znyr1i^)v7kw++3#+1+ak*#-$o-ng2%z&55s!7li_0z'
 # Global vars
 TMDB_API_KEY = env.TMDB_API_KEY
 TMDB_API_URL = "https://api.themoviedb.org/3/"
+TMDB_API_IMAGE = "https://image.tmdb.org/t/p/w640"
 
 # Auth settings
 LOGIN_REDIRECT_URL = 'index'
