@@ -9,10 +9,10 @@
     {% for tv_show in object_list %}
         <div>
             <h3>{{tv_show.title}}</h3>
-            {% if tv_show.get_next_episode_run_time %}
+            {% if tv_show.next_episode_run_time != '0' %}
                 <p>Next Episode : {{tv_show.next_episode_run_time}}</p>
             {% else %}
-                <p>No next Episode</p>
+                <p>Next Episode : Not scheduled yet!</p>
             {% endif %}
             <p>{{tv_show.overview}}</p>
             <p><em><a href="{% url 'tv_show_url' tv_show.tmdb_id %}">Check the details</a></em></p>

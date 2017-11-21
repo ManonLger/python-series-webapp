@@ -22,14 +22,19 @@ class TvShowManager(models.Manager):
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
         #get the endpoint of tmdb API for the tvshow and decode it to be used
 
+        next_episode = datetime.strptime(content["last_air_date"], '%Y-%m-%d').date()
+        if next_episode > datetime.now().date():
+            next_episode = str(next_episode)
+        else:
+            next_episode = '0'#"Not scheduled yet!"
+
         tv_show = self.create_tv_show_from_args(
             tmdb_id=tmdb_id,
             title=content["name"],
             overview=content["overview"],
             nb_of_seasons=content["number_of_seasons"],
             is_in_production=content["in_production"],
-            next_episode_run_time=datetime.strptime(content["last_air_date"], '%Y-%m-%d')
-            #conversion into a date field
+            next_episode_run_time=next_episode
         )
         #set the attributes of the TvShow object while creating the object
         return tv_show
@@ -46,9 +51,26 @@ class TvShow(models.Model):
     overview = models.TextField(null=True)
     nb_of_seasons = models.IntegerField(default=0)
     is_in_production = models.BooleanField(default=True)
-    next_episode_run_time = models.DateField(null=True)
+    next_episode_run_time = models.CharField(max_length=10, null=True)
 
     objects = TvShowManager()
 
     def __str__(self):
         return self.title
+
+    # Impossible d'utiliser des Property si on veut pouvoir utiliser des QuerySet.
+    # Et il faut traiter avec des QuerySet pour WishlistView notamment.
+
+    # @property
+    # def next_episode_run_time(self):
+    #     url = settings.TMDB_API_URL + "tv/" + str(self.tmdb_id)
+    #     content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
+    #     date = datetime.strptime(content["last_air_date"], '%Y-%m-%d').date()
+    #     if date > datetime.now().date():
+    #         return date
+    #     else:
+    #         return "Not scheduled yet!"
+    #
+    # @next_episode_run_time.setter
+    # def next_episode_run_time(self, value):
+    #     self._next_episode_run_time = value
