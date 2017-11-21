@@ -9,7 +9,7 @@ def tv_show(request, tmdb_id):
     seasons_list = range(1, tv_show.nb_of_seasons+1) #create a list of the seasons in the tv_show, to be used in the template
     next_episode = tv_show.next_episode_run_time #get the next_episode date
 
-    anonymous = request.user.username == '' #boolean indicating if the user is AnonymousUser
+    anonymous = request.user.is_authenticated == False #boolean indicating if the user is AnonymousUser
     if not anonymous:
         is_in_wishlist = request.user.wishlist.is_in_list(tmdb_id) #get the info if the tv_show is already in the user's wishlist
         if request.method == "POST":

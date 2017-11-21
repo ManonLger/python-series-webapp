@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -18,7 +17,6 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs) #Call the method of the parent
         context["search_form"] = SearchForm() #add the form object to the context
-        context["anonymous"] = self.request.user.username == '' #add to the context a boolean describing if the user is logged in as AnonymousUser
         return context
 
     def get_queryset(self):
