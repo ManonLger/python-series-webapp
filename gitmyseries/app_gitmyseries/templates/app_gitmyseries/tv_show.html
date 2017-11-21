@@ -7,6 +7,7 @@
 <body>
     <h1 style="text-align:center"><em>{{tv_show.title}}</em></h1>
     <h3 style="text-align:center">{{tv_show.nb_of_seasons}} seasons</h3>
+    <center><img src={{tv_show.url_image}} width="250" height="375" ></center>
     {% if tv_show.is_in_production %}
         <p>In production</p>
         <p>Next Episode : {{next_episode}}</p>

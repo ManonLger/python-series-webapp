@@ -21,6 +21,8 @@ class TvShowManager(models.Manager):
         """Method that enables us to overide the __init__method of the class TvShow"""
         url = settings.TMDB_API_URL + "tv/" + str(tmdb_id) 
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
+        url_image_tv_show = url + "/images" 
+        content_image_tv_show = json.loads(requests.get(url_image_tv_show, params={"api_key": settings.TMDB_API_KEY}).content.decode())
         #get the endpoint of tmdb API for the tvshow and decode it to be used
 
         tv_show = self.create_tv_show_from_args(
@@ -28,7 +30,8 @@ class TvShowManager(models.Manager):
             title=content["name"],
             overview=content["overview"],
             nb_of_seasons=content["number_of_seasons"],
-            is_in_production=content["in_production"]
+            is_in_production=content["in_production"],
+            url_image= settings.TMDB_API_IMAGE + content_image_tv_show['posters'][0]['file_path']
         )
         #set the attributes of the TvShow object while creating the object
 
@@ -66,6 +69,7 @@ class TvShow(models.Model):
     nb_of_seasons = models.IntegerField(default=0)
     is_in_production = models.BooleanField(default=True)
     next_episode_run_time = models.CharField(max_length=10, null=True)
+    url_image=models.TextField(null=True)
 
     objects = TvShowManager()
 
