@@ -5,6 +5,11 @@ from django.db import models
 from datetime import datetime
 import time
 
+def date_formatter(e): #Helper to avoid errors later
+    try:
+        return datetime.strptime(e["air_date"], '%Y-%m-%d')
+    except TypeError:
+        return '0'
 
 class TvShowManager(models.Manager):
     def create_tv_show_from_args(self, tmdb_id, **kwargs):
@@ -39,7 +44,7 @@ class TvShowManager(models.Manager):
         url_season = settings.TMDB_API_URL + "tv/" + str(tmdb_id)\
                                     + "/season/" + str(tv_show.nb_of_seasons)
         content_season = json.loads(requests.get(url_season, params={"api_key": settings.TMDB_API_KEY}).content.decode())
-        episodes_dates = [ datetime.strptime(e["air_date"], '%Y-%m-%d') for e in content_season["episodes"] ]
+        episodes_dates = [ date_formatter(e) for e in content_season["episodes"] ]
 
         if episodes_dates[-1] < datetime.now():
             next_episode = '0'
