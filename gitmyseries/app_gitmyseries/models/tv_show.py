@@ -5,6 +5,9 @@ from django.db import models
 from datetime import datetime
 import time
 
+from app_gitmyseries.models.season import Season
+
+
 class TvShowManager(models.Manager):
     def create_tv_show_from_args(self, tmdb_id, **kwargs):
         tv_show = TvShow.objects.filter(tmdb_id=tmdb_id) #check if tv_show is already in TvShow database, based on tmdb_id
@@ -22,21 +25,37 @@ class TvShowManager(models.Manager):
         content = json.loads(requests.get(url, params={"api_key": settings.TMDB_API_KEY}).content.decode())
         #get the endpoint of tmdb API for the tvshow and decode it to be used
 
-        next_episode = datetime.strptime(content["last_air_date"], '%Y-%m-%d').date()
-        if next_episode > datetime.now().date():
-            next_episode = str(next_episode)
-        else:
-            next_episode = '0'#"Not scheduled yet!"
-
         tv_show = self.create_tv_show_from_args(
             tmdb_id=tmdb_id,
             title=content["name"],
             overview=content["overview"],
             nb_of_seasons=content["number_of_seasons"],
-            is_in_production=content["in_production"],
-            next_episode_run_time=next_episode
+            is_in_production=content["in_production"]
         )
         #set the attributes of the TvShow object while creating the object
+
+        # Get next episode run time (not immediately available in the API response)
+        url_season = settings.TMDB_API_URL + "tv/" + str(tmdb_id)\
+                                    + "season/" + str(tv_show.nb_of_seasons)
+        content = json.loads(requests.get(url_season, params={"api_key": settings.TMDB_API_KEY}).content.decode())
+        episodes_dates = [ e["air_date"] for e in content["episodes"] ]
+
+        if episodes_dates[-1] < datetime.now().date():
+            next_episode = '0'
+        else:
+            for e in episodes_dates:
+                if e < datetime.now().date():
+                    pass
+                else:
+                    next_episode = datetime.strptime(e, '%Y-%m-%d').date()
+                    break
+        # next_episode = datetime.strptime(content["last_air_date"], '%Y-%m-%d').date()
+        # if next_episode > datetime.now().date():
+        #     next_episode = str(next_episode)
+        # else:
+        #     next_episode = '0'#"Not scheduled yet!"
+        tv_show.next_episode_run_time = next_episode
+
         return tv_show
 
 class TvShow(models.Model):
