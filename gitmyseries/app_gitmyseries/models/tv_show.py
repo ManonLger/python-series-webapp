@@ -41,20 +41,23 @@ class TvShowManager(models.Manager):
         #set the attributes of the TvShow object while creating the object
 
         # Get next episode run time (not immediately available in the API response)
-        url_season = settings.TMDB_API_URL + "tv/" + str(tmdb_id)\
-                                    + "/season/" + str(tv_show.nb_of_seasons)
-        content_season = json.loads(requests.get(url_season, params={"api_key": settings.TMDB_API_KEY}).content.decode())
-        episodes_dates = [ date_formatter(e) for e in content_season["episodes"] ]
+        try:
+            url_season = settings.TMDB_API_URL + "tv/" + str(tmdb_id)\
+                                        + "/season/" + str(tv_show.nb_of_seasons)
+            content_season = json.loads(requests.get(url_season, params={"api_key": settings.TMDB_API_KEY}).content.decode())
+            episodes_dates = [ date_formatter(e) for e in content_season["episodes"] ]
 
-        if episodes_dates[-1] < datetime.now():
+            if episodes_dates[-1] < datetime.now():
+                next_episode = '0'
+            else:
+                for e in episodes_dates:
+                    if e < datetime.now():
+                        pass
+                    else:
+                        next_episode = e.date()
+                        break
+        except Exception:
             next_episode = '0'
-        else:
-            for e in episodes_dates:
-                if e < datetime.now():
-                    pass
-                else:
-                    next_episode = e.date()
-                    break
 
         # Set next episode run time
         tv_show.next_episode_run_time = next_episode
