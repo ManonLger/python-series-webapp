@@ -18,7 +18,7 @@ class WishListView(ListView):
             pass
         else:
             wishes = self.request.user.wishlist.wishes #Get current user's wishlist
-            return wishes.order_by("-next_episode_run_time")
+            return wishes.all()
 
     def post(self, request, tmdb_id):
         request.user.wishlist.remove_from_list(tmdb_id) #Call the method to remove the tv_show from the wishlist
