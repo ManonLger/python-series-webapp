@@ -10,11 +10,6 @@
         <div>
             <h3>{{tv_show.title}}</h3>
             <img src={{tv_show.url_image}} width="100" height="150">
-            {% if tv_show.next_episode_run_time != '0' %}
-                <p>Next Episode : {{tv_show.next_episode_run_time}}</p>
-            {% else %}
-                <p>Next Episode : Not scheduled yet!</p>
-            {% endif %}
             <p>{{tv_show.overview}}</p>
             <p><em><a href="{% url 'tv_show_url' tv_show.tmdb_id %}">Check the details</a></em></p>
             <form action="{% url 'wishlist_url' tv_show.tmdb_id %}" method="post"> <!-- The Post Method sends the data collected from the form to the WishList view -->
